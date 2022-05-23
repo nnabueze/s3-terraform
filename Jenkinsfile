@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Excute downstream') {
+        stage('Excuting downstream') {
             steps {
                 sh '''
                 aws --version
