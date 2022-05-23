@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Terraform OutPut to Parameter') {
+        stage('Terraform OutPut') {
             steps {
                 sh '''
                 aws --version
