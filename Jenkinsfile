@@ -7,15 +7,8 @@ pipeline {
         stage('Validating terraform') {
             steps {
                 sh '''
+                terraform init
                 terraform validate
-                '''
-            }
-        }
-
-        stage('Initial Terraform') {
-            steps {
-                sh '''
-                aws --version
                 '''
             }
         }
