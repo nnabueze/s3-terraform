@@ -32,7 +32,7 @@ pipeline {
                 script{
                     if(ACTION == "apply"){
                         S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
-                        echo ${S3_BUCKET}
+                        sh 'echo ${S3_BUCKET}'
                     }else{
                         echo "Bucket destroy"
                     }
