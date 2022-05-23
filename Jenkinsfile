@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Applying Terraform') {
+        stage('Apply Terraform') {
             steps {
                 sh '''
                 aws --version
