@@ -9,6 +9,7 @@ pipeline {
                 sh '''
                 terraform init
                 terraform validate
+                terraform plan
                 '''
             }
         }
