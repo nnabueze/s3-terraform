@@ -3,6 +3,11 @@ pipeline {
         label "linux"
     }
 
+    environment{
+        ACTION = "apply"
+        S3_BUCKET = ""
+    }
+
     stages {
         stage('Validating terraform') {
             steps {
@@ -17,24 +22,19 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 sh '''
-                aws --version
+                terraform ${ACTION} --auto-approve
                 '''
             }
         }
 
         stage('Terraform OutPut') {
             steps {
-                sh '''
-                aws --version
-                '''
-            }
-        }
-
-        stage('Excuting downstream') {
-            steps {
-                sh '''
-                aws --version
-                '''
+                if(ACTION == "apply"){
+                    S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
+                    echo '${S3_BUCKET}'
+                }else{
+                     echo "Bucket destroy"
+                }
             }
         }
     }
