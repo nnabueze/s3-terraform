@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment{
-        ACTION = "destroy"
+        ACTION = "apply"
         S3_BUCKET = ""
     }
 
@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Apply Terraform') {
+        stage('Applying Terraform') {
             steps {
                 sh '''
                 terraform ${ACTION} --auto-approve
