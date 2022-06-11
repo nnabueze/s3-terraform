@@ -19,7 +19,10 @@ pipeline {
             }
         }
 
-        stage('Applying Terraform') {
+        stage('Apply Terraform') {
+            when {
+                branch 'master'
+            }
             steps {
                 sh '''
                 terraform ${ACTION} --auto-approve
@@ -28,6 +31,9 @@ pipeline {
         }
 
         stage('Terraform OutPut') {
+            when {
+                branch 'master'
+            }
             steps {
                 script{
                     if(ACTION == "apply"){
