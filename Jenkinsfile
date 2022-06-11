@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Applying Terraform') {
+        stage('Apply Terraform') {
             when {
                 branch 'master'
             }
