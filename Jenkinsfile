@@ -23,7 +23,7 @@ pipeline {
                 branch 'dev'
             }
             steps {
-                sh 'terraform state list'
+                sh 'terraform state rm aws_s3_bucket.backend'
                 // sh 'terraform apply --auto-approve'
                 // script {
                 //     S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
