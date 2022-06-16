@@ -4,6 +4,7 @@ pipeline {
     }
 
     environment{
+        ACTION = "destroy"
         S3_BUCKET = ""
     }
 
@@ -18,27 +19,22 @@ pipeline {
             }
         }
 
-        stage('Apply Terraform') {
+
+        stage('Terraform status') {
             when {
                 branch 'dev'
             }
             steps {
-                // sh 'terraform state rm aws_s3_bucket.backend'
-                sh 'terraform apply --auto-approve'
-                script {
-                    S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
-                    echo S3_BUCKET
+                script{
+                    if(ACTION == "apply"){
+                        sh 'terraform ${ACTION} --auto-approve'
+                        S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
+                        echo S3_BUCKET
+                    }else{
+                        sh 'terraform ${ACTION} --auto-approve'
+                        echo "Bucket destroy"
+                    }
                 }
-            }
-        }
-
-        stage('Terraform to Destroying') {
-            when {
-                branch 'destroy'
-            }
-            steps {
-                sh 'terraform destroy --auto-approve'
-                echo 'bucket destroy'
             }
         }
     }
