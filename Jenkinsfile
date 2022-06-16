@@ -25,8 +25,10 @@ pipeline {
             steps {
                
                 sh 'terraform apply --auto-approve'
-                S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
-                echo S3_BUCKET
+                script {
+                    S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
+                    echo S3_BUCKET
+                }
             }
         }
 
