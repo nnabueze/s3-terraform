@@ -8,6 +8,14 @@ pipeline {
     }
 
     stages {
+        stage('removing object'){
+            when {
+                branch 'remove'
+            }
+            steps {
+                sh 'terraform state rm s3-terraform-cicd.id'
+            }
+        }
         stage('Validating terraform') {
             steps {
                 sh '''
