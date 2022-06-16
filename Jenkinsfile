@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Apply Terraform') {
+        stage('Applying Terraform') {
             when {
                 branch 'dev'
             }
