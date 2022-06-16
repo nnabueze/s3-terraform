@@ -23,7 +23,7 @@ pipeline {
                 branch 'dev'
             }
             steps {
-                sh 'terraform import aws_s3_bucket.backend'
+                sh 'terraform import aws_s3_bucket.backend s3-terraform-cicd'
                 // sh 'terraform apply --auto-approve'
                 // script {
                 //     S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
