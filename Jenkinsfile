@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('Terraform to Destroying') {
+        stage('Terraform Destroy') {
             when {
                 branch 'destroy'
             }
