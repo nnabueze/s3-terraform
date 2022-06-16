@@ -13,7 +13,6 @@ pipeline {
                 sh '''
                 terraform init
                 terraform validate
-                terraform import
                 terraform plan
                 '''
             }
@@ -24,7 +23,6 @@ pipeline {
                 branch 'dev'
             }
             steps {
-               
                 sh 'terraform apply --auto-approve'
                 script {
                     S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
