@@ -4,7 +4,6 @@ pipeline {
     }
 
     environment{
-        ACTION = "apply"
         S3_BUCKET = ""
     }
 
@@ -21,28 +20,25 @@ pipeline {
 
         stage('Apply Terraform') {
             when {
-                branch 'master'
+                branch 'dev'
             }
             steps {
-                sh '''
-                terraform ${ACTION} --auto-approve
-                '''
+               
+                sh 'terraform apply --auto-approve'
+                script {
+                    S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
+                    echo S3_BUCKET
+                }
             }
         }
 
-        stage('Terraform OutPut') {
+        stage('Terraform Destroy') {
             when {
-                branch 'master'
+                branch 'destroy'
             }
             steps {
-                script{
-                    if(ACTION == "apply"){
-                        S3_BUCKET = sh(returnStdout: true, script: "terraform output s3-bucket-name").trim()
-                        echo S3_BUCKET
-                    }else{
-                        echo "Bucket destroy"
-                    }
-                }
+                sh 'terraform destroy --auto-approve'
+                echo 'bucket destroy'
             }
         }
     }
