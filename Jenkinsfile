@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment{
-        ACTION = "destroy"
+        ACTION = "apply"
         S3_BUCKET = ""
     }
 
